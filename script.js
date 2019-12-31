@@ -10,20 +10,29 @@ var upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var number = '0123456789';
 var symbol = '!#$%&*+,-.:;<=>?@\^_`~';
 
+
+var lowBox = document.getElementById("lower");
 var amount = document.getElementById("amount");
 var upBox = document.getElementById("upper");
 var numBox = document.getElementById("number");
 var symBox = document.getElementById("symbol");
 var password = document.getElementById("password");
 
-function generatePassword(l,characters) {
+function generatePassword(l, characters) {
 
 var pwd = ''
 
-    for (var i = 0; i <l; i++) {
+    for (var i = 0; i < l; i++) {
          pwd += characters.charAt(Math.floor(Math.random() * characters.length));  
     }
-    return pwd;
+   if (amount.value < 8 || amount.value > 128){
+           alert("Please choose between 8 and 128 characters!");
+       
+       }
+   else{    
+       return pwd;
+   }
+  
 
     // alert("ive been clicked");
     // return "password";
@@ -52,14 +61,20 @@ function copyToClipboard() {
 
 // BONUS EVENT LISTENER
 // Add event listener to generate button
-generateBtn.addEventListener("click", function(event){
+generateBtn.addEventListener("click", function (event) {
     var characters = char;
+    (lowBox.checked) ? characters += char: '';
     (numBox.checked) ? characters += number: '';
     (symBox.checked) ? characters += symbol: '';
     (upBox.checked) ? characters += upper: '';
 
-    password.value = generatePassword(amount.value, characters);
+    if (lowBox.checked == true || numBox.checked == true || symBox.checked == true || upBox.checked == true) {
 
+        (password.value = generatePassword(amount.value, characters));
+    }
+else {
+    alert("Select character type!")
+}
 
 });
 
